@@ -1,0 +1,172 @@
+#!/bin/bash
+# 脚本名称：tans_pipeline
+# 作者：Yin Li
+# 版本：v1.0
+# 日期：2024-03-25
+# 描述：转录组分析流程
+log=tans.log
+tmpfile=.tmp_tans
+conda_file=`which conda |sed 's/[[:alnum:]]*bin\/conda//g'`
+sfile=$conda_file\envs/tans/bin
+func(){
+    cat <<EOF
+  tans_pipeline  Version: 1.0
+  Documents: https://github.com/LIYIN2/onts_auxiliary_script
+
+  Usage: 
+    tans [-h] [Available Commands] <input_file>
+
+  Available Commands:
+    norm                -- 命令：tans norm -s tpm/fpkm -i <featureCounts_file>
+    cor                 -- 命令：tans cor -i <input_file> -s <group_file> 
+    deg                 -- 命令：tans deg  -i <featureCounts_file> -s <sample_file> -f <1> -r <0.05>
+    vol                 -- 命令：tans vol -i <expression_file> -f <1> -r <0.05>
+    org                 -- 命令：tans org -i <annotations_file> 
+    enrich              -- 命令：tans enrich -s go/kegg -i <DEG_file>
+
+  [示例] tans deg  -i featureCounts.txt -s sample.txt -f 1 -r 0.05
+EOF
+    exit 0
+}
+install(){
+	conda env create -f tans.yml 
+	conda install -y bioconda::bioconductor-deseq2
+	conda install -y conda-forge::r-argparser
+	conda install -y conda-forge::r-pheatmap
+	mv scripts/* $sfile/ 
+	clear && $conda_file\envs/tans/bin/cowsay 嗨 $USER TANS Pipeline已配置完成,欢迎使用❤️❤️
+	mv ./tans $sfile/ && rm tans.yml
+}
+
+
+while getopts "a:i:s:h:f:r:n" opt; do
+    case $opt in
+	a) a="$OPTARG" ;;
+        i) i="$OPTARG" ;;
+        s) s="$OPTARG" ;;
+        f) f="$OPTARG" ;;
+        r) r="$OPTARG" ;;
+	n) install ;;
+        h) func ;;
+        ?) func ;;
+    esac
+done
+
+if [[ "$a" == "norm" ]]; then
+    # 设置默认值
+    s=${s:-"tpm"}
+    if [[ -z "$i" ]]; then
+        echo "Error: Input parameters are missing."
+        exit 1
+    fi
+
+    if [[ ! -f "$sfile/count2$s.ly" ]]; then
+        echo "Error: R script file does not exist."
+        exit 1
+    fi
+    Rscript "$sfile/count2$s.ly" -i "$i"  1>"$log" 2>&1 || echo "[error]出现错误请检查日志!"
+    cut -f 1,7- "count2norm.txt" > "count2$s.txt" 
+    sed -i "s#.bam##g" "count2$s.txt"
+    rm count2norm.txt 
+
+    exit 0
+
+fi
+
+if [[ "$a" == "deg" ]]; then
+
+    f=${f:-1}
+    r=${r:-0.05}
+
+
+    if [[ -z "$i" ]]; then
+        echo "Error: Input parameters are missing."
+        exit 1
+    fi
+
+
+    if [[ -f "$i" ]]; then
+        cut -f 1,7- "$i" > featureCounts_clean.txt
+        sed -i "s#.bam##g" featureCounts_clean.txt
+        sed -i '1d' featureCounts_clean.txt
+
+
+        Rscript "$sfile/deg.r" -i featureCounts_clean.txt -s "$s" -F "$f" -P "$r" 1>"$log" 2>&1 || echo "[error] 出现错误请检查日志!"
+
+
+        rm featureCounts_clean.txt result.csv
+    else
+        echo "Error: Input file '$i' does not exist."
+        exit 1
+    fi
+
+
+    exit 0
+fi
+
+
+if [[ "$a" == "cor" ]]; then
+    if [[ -f "$sfile/cor.r" ]]; then
+        if [[ -z "$i" || -z "$s" ]]; then
+            echo "Error: Input parameters are missing."
+            exit 1
+        fi
+        Rscript "$sfile/cor.r" -i "$i" -s "$s" 1>$log 2>&1 || echo "[error]出现错误请检查日志!"
+        exit 0
+    else
+        echo "Error: R script file '$sfile/cor.r' does not exist."
+        exit 1
+    fi
+fi
+
+
+
+if [[ "$a" == "vol" ]]; then
+
+    f=${f:-1}
+    r=${r:-0.05}
+
+    if [[ -z "$i" ]]; then
+        echo "Error: Input parameters are missing."
+        exit 1
+    fi
+
+
+    Rscript "$sfile/vol.r" -i "$i" -F "$f" -P "$r" 1>"$log" 2>&1 || echo "[error] 出现错误请检查日志!" 
+
+
+    exit 0
+fi
+
+
+if [[ "$a" == "enrich" ]]; then
+        if [[ -z "$s" || -z "$i" ]]; then
+	            echo "Error: Input parameters are missing."
+              exit 1
+        fi
+        if [[ "$a" == "enrich" || "$s" != "" ]]; then
+            if [[ -z "$i" ]]; then
+                echo "Error: Input parameters are missing."
+                exit 1
+            fi
+
+
+            if [[ ! -f "$sfile/enrich_$s.r" ]]; then
+                echo "Error: R script file does not exist."
+                exit 1
+            fi
+
+            Rscript "$sfile/enrich_$s.r" -i "$i"  1>$log 2>&1 || echo "[error]出现错误请检查日志!"
+            exit 0
+        fi
+fi
+
+
+
+if [[ $a == "org" ]];then
+	sed '1,4d' $i|sed 's/#//g'  > out.emapper.annotations.txt
+        Rscript $sfile/org.r -i out.emapper.annotations.txt 1>$log 2>&1 || echo "[error]出现错误请检查日志!"
+	rm out.emapper.annotations.txt
+        exit 0
+fi
+

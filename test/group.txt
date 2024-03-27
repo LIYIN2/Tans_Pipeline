@@ -1,0 +1,7 @@
+id	group
+120hC1	c
+120hC3	c
+120hC5	c
+120hS1	s
+120hS3	s
+120hS5	s
