@@ -1,6 +1,6 @@
 # Tans-pipeline
 
-Simplified transcriptome analysis process
+转录组分析建议流程，可用于RNA-seq数据比对后的定量、差异分析以及富集分析
 
 ---
 
