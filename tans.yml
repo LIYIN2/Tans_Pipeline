@@ -13,13 +13,16 @@ dependencies:
   - binutils_impl_linux-64=2.38=h2a08ee3_1
   - bioconductor-annotationdbi=1.64.1=r43hdfd78af_0
   - bioconductor-annotationforge=1.44.0=r43hdfd78af_0
+  - bioconductor-beachmat=2.18.0=r43hf17093f_0
   - bioconductor-biobase=2.62.0=r43ha9d7317_1
   - bioconductor-biocgenerics=0.48.1=r43hdfd78af_2
   - bioconductor-biocparallel=1.36.0=r43hf17093f_1
+  - bioconductor-biocsingular=1.18.0=r43hf17093f_0
   - bioconductor-biostrings=2.70.1=r43ha9d7317_1
   - bioconductor-clusterprofiler=4.10.0=r43hdfd78af_0
   - bioconductor-data-packages=20231203=hdfd78af_0
   - bioconductor-delayedarray=0.28.0=r43ha9d7317_1
+  - bioconductor-delayedmatrixstats=1.24.0=r43hdfd78af_0
   - bioconductor-deseq2=1.42.0=r43hf17093f_0
   - bioconductor-dose=3.28.1=r43hdfd78af_0
   - bioconductor-enrichplot=1.22.0=r43hdfd78af_0
@@ -34,10 +37,13 @@ dependencies:
   - bioconductor-iranges=2.36.0=r43ha9d7317_1
   - bioconductor-keggrest=1.42.0=r43hdfd78af_0
   - bioconductor-matrixgenerics=1.14.0=r43hdfd78af_1
+  - bioconductor-pcatools=2.14.0=r43hf17093f_0
   - bioconductor-qvalue=2.34.0=r43hdfd78af_0
   - bioconductor-s4arrays=1.2.0=r43ha9d7317_1
   - bioconductor-s4vectors=0.40.2=r43ha9d7317_1
+  - bioconductor-scaledmatrix=1.10.0=r43hdfd78af_0
   - bioconductor-sparsearray=1.2.2=r43ha9d7317_1
+  - bioconductor-sparsematrixstats=1.14.0=r43hf17093f_0
   - bioconductor-summarizedexperiment=1.32.0=r43hdfd78af_0
   - bioconductor-treeio=1.26.0=r43hdfd78af_1
   - bioconductor-xvector=0.42.0=r43ha9d7317_1
@@ -145,6 +151,7 @@ dependencies:
   - r-digest=0.6.33=r43h884c59f_0
   - r-downloader=0.4=r43h6115d3f_0
   - r-dplyr=1.1.3=r43h884c59f_0
+  - r-dqrng=0.3.1=r43h884c59f_0
   - r-dtplyr=1.3.1=r43h6115d3f_0
   - r-ellipsis=0.3.2=r43h76d94ec_0
   - r-evaluate=0.22=r43h6115d3f_0
@@ -182,6 +189,7 @@ dependencies:
   - r-httr=1.4.7=r43h6115d3f_0
   - r-ids=1.0.1=r43h142f84f_0
   - r-igraph=1.5.1=r43hb5eb8f6_0
+  - r-irlba=2.3.5.1=r43h76d94ec_0
   - r-isoband=0.2.7=r43h884c59f_0
   - r-jquerylib=0.1.4=r43h6115d3f_0
   - r-jsonlite=1.8.7=r43h76d94ec_0
@@ -235,12 +243,14 @@ dependencies:
   - r-rmarkdown=2.25=r43h6115d3f_0
   - r-rsqlite=2.3.1=r43h884c59f_0
   - r-rstudioapi=0.15.0=r43h6115d3f_0
+  - r-rsvd=1.0.5=r43h142f84f_0
   - r-rvest=1.0.3=r43h6115d3f_0
   - r-sass=0.4.7=r43h884c59f_0
   - r-scales=1.2.1=r43h6115d3f_0
   - r-scatterpie=0.2.1=r43h6115d3f_0
   - r-selectr=0.4_2=r43h6115d3f_0
   - r-shadowtext=0.1.2=r43h6115d3f_0
+  - r-sitmo=2.0.2=r43h884c59f_0
   - r-snow=0.4_4=r43h142f84f_0
   - r-stringi=1.7.12=r43h884c59f_0
   - r-stringr=1.5.0=r43h6115d3f_0
@@ -273,6 +283,7 @@ dependencies:
   - sed=4.8=h7b6447c_0
   - setuptools=68.2.2=py39h06a4308_0
   - sqlite=3.41.2=h5eee18b_0
+  - subread=2.0.6=he4a0461_0
   - sysroot_linux-64=2.17=h57e8cba_10
   - tk=8.6.13=noxft_h4845f30_101
   - tktable=2.10=h3d55465_1
@@ -296,4 +307,4 @@ dependencies:
   - zipp=3.17.0=py39h06a4308_0
   - zlib=1.2.13=hd590300_5
   - zstd=1.5.5=hc292b87_0
-prefix: /homes/liy/miniconda3/envs/tans
+prefix: /homes/liyin/miniconda3/envs/tans
