@@ -169,4 +169,53 @@ if [[ $a == "org" ]];then
 	rm out.emapper.annotations.txt
         exit 0
 fi
+##2024.3.30
+if [[ "$a" == "gsea" ]]; then
+    if [[ -f "$sfile/gsea1.r" ]]; then
+        if [[ -z "$i" || -z "$s" ]]; then
+            echo "Error: Input parameters are missing."
+            exit 1
+        fi
+	if [[ "$i" != "GSEA.RData" ]]; then
+        	Rscript "$sfile/gsea1.r" -i "$i" -e "$s" 1>$log 2>&1 || echo "[error]出现错误请检查日志!"
+        	exit 0
+	else 
+		Rscript "$sfile/gsea2.r" -i "$i" -n "$s" 1>$log 2>&1 || echo "[error]出现错误请检查日志!"
+		exit 0
+	fi
+    else
+        echo "Error: R script file '$sfile/gsea1.r' does not exist."
+        exit 1
+    fi
+fi
+
+
+if [[ "$a" == "pca" ]]; then
+    if [[ -f "$sfile/pca.r" ]]; then
+        if [[ -z "$i" || -z "$s" ]]; then
+            echo "Error: Input parameters are missing."
+            exit 1
+        fi
+        Rscript "$sfile/pca.r" -i "$i" -s "$s" 1>$log 2>&1 || echo "[error]出现错误请检查日志!"
+        exit 0
+    else
+        echo "Error: R script file '$sfile/pca.r' does not exist."
+        exit 1
+    fi
+fi
+
+if [[ "$a" == "heatmap" ]]; then
+    if [[ -f "$sfile/heatmap.r" ]]; then
+        if [[ -z "$i" || -z "$s" || -z "$f" ]]; then
+            echo "Error: Input parameters are missing."
+            exit 1
+        fi
+        Rscript "$sfile/heatmap.r" -i "$f" -n "$i" -s "$s" 1>$log 2>&1 || echo "[error]出现错误请检查日志!"
+        exit 0
+    else
+        echo "Error: R script file '$sfile/heatmap.r' does not exist."
+        exit 1
+    fi
+fi
+
 
