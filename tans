@@ -14,7 +14,7 @@ func(){
   Documents: https://github.com/LIYIN2/Tans-pipeline
 
   Usage: 
-    tans [-h] [Available Commands] <input_file>
+    tans [-h] -a [Available Commands] <input_file>
 
   Available Commands:
     norm                -- 命令：tans -a norm -s tpm/fpkm -i <featureCounts_file>
