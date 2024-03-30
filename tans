@@ -37,6 +37,8 @@ install(){
 	conda install -y bioconda::bioconductor-deseq2
 	conda install -y conda-forge::r-argparser
 	conda install -y conda-forge::r-pheatmap
+	conda install -y bioconda::bioconductor-gseabase
+	conda install -y bioconda::bioconductor-complexheatmap
 	mv scripts/* $sfile/ 
 	clear && $conda_file\envs/tans/bin/cowsay 嗨 $USER TANS Pipeline已配置完成,欢迎使用❤️❤️
 	mv ./tans $sfile/ && rm tans.yml
