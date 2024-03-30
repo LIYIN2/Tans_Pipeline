@@ -1,7 +1,7 @@
 #!/bin/bash
 # 脚本名称：tans_pipeline
 # 作者：Yin Li
-# 版本：v1.0
+# 版本：v2.0
 # 日期：2024-03-25
 # 描述：转录组分析流程
 log=tans.log
