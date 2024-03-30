@@ -11,7 +11,7 @@ sfile=$conda_file\envs/tans/bin
 func(){
     cat <<EOF
   tans_pipeline  Version: 2.0
-  Documents: https://github.com/LIYIN2/Tans-pipeline
+  Documents: https://github.com/LIYIN2/Tans_Pipeline
 
   Usage: 
     tans [-h] -a [Available Commands] <input_file>
