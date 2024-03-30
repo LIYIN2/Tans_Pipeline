@@ -2,7 +2,7 @@
 # 脚本名称：tans_pipeline
 # 作者：Yin Li
 # 版本：v2.0
-# 日期：2024-03-25
+# 日期：2024-03-30
 # 描述：转录组分析流程
 log=tans.log
 tmpfile=.tmp_tans
@@ -10,19 +10,23 @@ conda_file=`which conda |sed 's/[[:alnum:]]*bin\/conda//g'`
 sfile=$conda_file\envs/tans/bin
 func(){
     cat <<EOF
-  tans_pipeline  Version: 1.0
+  tans_pipeline  Version: 2.0
   Documents: https://github.com/LIYIN2/Tans-pipeline
 
   Usage: 
     tans [-h] [Available Commands] <input_file>
 
   Available Commands:
-    norm                -- 命令：tans norm -s tpm/fpkm -i <featureCounts_file>
-    cor                 -- 命令：tans cor -i <input_file> -s <group_file> 
-    deg                 -- 命令：tans deg  -i <featureCounts_file> -s <sample_file> -f <1> -r <0.05>
-    vol                 -- 命令：tans vol -i <expression_file> -f <1> -r <0.05>
-    org                 -- 命令：tans org -i <annotations_file> 
-    enrich              -- 命令：tans enrich -s go/kegg -i <DEG_file>
+    norm                -- 命令：tans -a norm -s tpm/fpkm -i <featureCounts_file>
+    cor                 -- 命令：tans -a cor -i <input_file> -s <group_file> 
+    deg                 -- 命令：tans -a deg  -i <featureCounts_file> -s <sample_file> -f <1> -r <0.05>
+    vol                 -- 命令：tans -a vol -i <expression_file> -f <1> -r <0.05>
+    org                 -- 命令：tans -a org -i <annotations_file> 
+    enrich              -- 命令：tans -a enrich -s go/kegg -i <DEG_file>
+    gsea		-- 命令：tans -a gsea -i <geneSet_file> -s <expression_file>
+    gsea		-- 命令：tans -a gsea -i GSEA.RData -s <geneSet_name>
+    pca                 -- 命令：tans -a pca -i <input_file> -s <group_file> 
+    heatmap             -- 命令：tans -a heatmap -i <input_file> -s <group_file>  -f <heatmap_id>
 
   [示例] tans deg  -i featureCounts.txt -s sample.txt -f 1 -r 0.05
 EOF
