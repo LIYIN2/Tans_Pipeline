@@ -35,7 +35,7 @@ matrix <- read.csv(argv$matrix,sep = "\t",
                    row.names = 1,check.names = F) 
 sample <- read.table(argv$sample,header = T) %>% 
   `colnames<-`(c('sample', 'treatment'))
-data <- select(matrix,sample[,1])
+data <- select(matrix,sample[,1]) %>%na.omit()
 
 # 构建差异表达表
 
